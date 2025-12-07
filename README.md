@@ -1,31 +1,128 @@
-# Welcome to your Expo app 👋
+# FYNT - For Your Net Total
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+FYNT (For Your Net Total) is a personal finance tracking application built with React Native and Expo. It helps you track your income and expenses, manage your budget, and gain insights into your spending habits.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- 💰 Track income and expenses
+- 📊 View financial insights and analytics
+- 🏷️ Categorize transactions
+- 📅 Filter transactions by date
+- 🔄 Sync across devices (coming soon)
+- 🔒 Secure data storage with SQLite
+- 🌓 Dark/Light mode support
+
+## 🚀 Tech Stack
+
+- **Framework**: React Native with Expo
+- **Navigation**: Expo Router
+- **Styling**: NativeWind (TailwindCSS for React Native)
+- **UI Components**: Expo Vector Icons, React Native Paper
+- **Form Handling**: React Hook Form
+- **Database**: Expo SQLite
+- **Animation**: React Native Reanimated
+
+## 📋 Prerequisites
+
+- Node.js (v16 or later)
+- npm or yarn
+- Expo CLI
+- Android Studio / Xcode (for mobile development)
+- Git
+
+## 🛠️ Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/yourusername/fynt.git
+   cd fynt
+   ```
+
+2. **Install dependencies**
 
    ```bash
    npm install
+   # or
+   yarn
    ```
 
-2. Start the app
-
+3. **Start the development server**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 📱 Running the App
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **iOS Simulator**: Press `i` in the terminal
+- **Android Emulator**: Press `a` in the terminal
+- **Physical Device**: Scan the QR code with the Expo Go app
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🗂 Project Structure
 
-## Get a fresh project
+```
+fynt/
+├── app/                    # Main application code
+│   ├── auth/               # Authentication screens
+│   └── home/               # Main app screens
+│       ├── add-expense/    # Add expense screen
+│       ├── add-income/     # Add income screen
+│       ├── history/        # Transaction history
+│       └── settings/       # App settings
+├── components/             # Reusable components
+├── assets/                 # Static assets
+└── utils/                  # Utility functions
+```
+
+## �️ Routes
+
+The application uses file-based routing with the following main routes:
+
+- `/` - Home/Dashboard
+  - Displays financial overview and recent transactions
+  - Quick access to add income/expense
+
+- `/auth` - Authentication
+  - Handles user login and registration
+  - Manages user sessions
+
+- `/home` - Main App Screens
+  - `/add-expense` - Add new expense transactions
+  - `/add-income` - Add new income transactions
+  - `/history` - View and filter transaction history
+  - `/settings` - App and account settings
+
+- `/components` - Reusable UI Components
+  - `/auth` - Authentication forms and components
+  - `/home` - Home screen components like modals and transaction items
+
+## �📝 Available Scripts
+
+- `npm start` - Start the development server
+- `npm run android` - Run on Android device/emulator
+- `npm run ios` - Run on iOS simulator
+- `npm run web` - Run in web browser
+- `npm run lint` - Run ESLint
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ using React Native and Expo
+- Icons by Expo Vector Icons
+- UI components from React Native Paper
 
 When you're ready, run:
 
