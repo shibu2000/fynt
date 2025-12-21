@@ -5,12 +5,13 @@ import { TouchableOpacity } from "react-native";
 
 const _layout = () => {
   const router = useRouter();
+
   return (
     <Stack
       screenOptions={{
         headerShown: true,
         headerBackVisible: false,
-        title: "Add Income",
+        title: "Transaction Details",
         headerTitleAlign: "center",
         headerLeft: () => (
           <TouchableOpacity

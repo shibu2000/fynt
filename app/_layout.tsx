@@ -12,8 +12,12 @@ import {
   useFonts,
 } from "@expo-google-fonts/dm-sans";
 
+import { ToastProvider } from "@/components/ToastProvider";
+import migrateDbIfNeeded from "@/database/migrations";
+import { TransactionProvider } from "@/providers/TransactionProviders";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { SQLiteProvider } from "expo-sqlite";
 import React, { useEffect } from "react";
 import { StatusBar, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -47,7 +51,13 @@ export default function RootLayout() {
         backgroundColor="transparent"
         barStyle="dark-content" // or "light-content"
       />
-      <Stack screenOptions={{ headerShown: false }} />
+      <ToastProvider>
+        <SQLiteProvider databaseName={`fynt.db`} onInit={migrateDbIfNeeded}>
+          <TransactionProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+          </TransactionProvider>
+        </SQLiteProvider>
+      </ToastProvider>
     </SafeAreaProvider>
   );
 }

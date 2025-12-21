@@ -59,9 +59,12 @@ const ActionModal = ({
     }
   }, [modalVisibility]);
 
-  const navigate = (name: "add-expanse" | "add-income") => {
+  const navigate = (type: "expense" | "income") => {
     handleCloseModal();
-    router.push(`/home/${name}`);
+    router.push({
+      pathname: `/home/add-transaction`,
+      params: { type },
+    });
   };
 
   return (
@@ -112,7 +115,7 @@ const ActionModal = ({
         <View className="flex justify-center gap-5 p-5">
           <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => navigate("add-income")}
+            onPress={() => navigate("income")}
           >
             <View
               style={styles.shadowBox}
@@ -125,7 +128,7 @@ const ActionModal = ({
 
           <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => navigate("add-expanse")}
+            onPress={() => navigate("expense")}
           >
             <View
               style={styles.shadowBox}

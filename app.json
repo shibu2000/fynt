@@ -42,11 +42,18 @@
         }
       ],
       "expo-font",
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "523edb40-9896-43d0-aaf2-c30506e8970d"
+      }
     }
   }
 }

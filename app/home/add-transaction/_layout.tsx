@@ -1,16 +1,30 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 
 const _layout = () => {
   const router = useRouter();
+  const { type, id } = useLocalSearchParams<{
+    type: "income" | "expanse";
+    id: string;
+  }>();
+
+  const title =
+    type == "income"
+      ? id
+        ? "Update Income"
+        : "Add Income"
+      : id
+        ? "Update Expense"
+        : "Add Expense";
+
   return (
     <Stack
       screenOptions={{
         headerShown: true,
         headerBackVisible: false,
-        title: "Add Expanse",
+        title,
         headerTitleAlign: "center",
         headerLeft: () => (
           <TouchableOpacity
