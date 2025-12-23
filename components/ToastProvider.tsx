@@ -103,7 +103,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    top: Platform.OS === "android" ? 40 : 60,
+    top: Platform.OS === "android" ? 60 : 60,
     left: 16,
     right: 16,
     zIndex: 9999,

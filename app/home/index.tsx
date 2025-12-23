@@ -12,9 +12,10 @@ import {
 } from "@expo/vector-icons";
 
 import { useTransaction } from "@/providers/TransactionProviders";
+import { TransactionWithId } from "@/type/transaction.type";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link, useRouter } from "expo-router";
-import React, { memo, useState } from "react";
+import { Link, useFocusEffect, useRouter } from "expo-router";
+import React, { memo, useCallback, useState } from "react";
 import {
   FlatList,
   Pressable,
@@ -76,10 +77,24 @@ const Categories = [
 const Home = () => {
   const router = useRouter();
   const [modalVisibility, setModalVisibility] = useState(false);
-  const { transactions, balance } = useTransaction();
+  const [transactions, setTransactions] = useState<TransactionWithId[]>([]);
+  const { balance, fetchTransaction } = useTransaction();
   const handleCloseModal = () => {
     setModalVisibility(false);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        try {
+          const data = await fetchTransaction(1);
+          setTransactions(data);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }, [])
+  );
 
   return (
     <View className="flex-1">

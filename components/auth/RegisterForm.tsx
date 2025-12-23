@@ -95,16 +95,6 @@ const LoginForm = () => {
             Register
           </Text>
         </TouchableOpacity>
-
-        <Text
-          style={{
-            marginTop: 5,
-            textAlign: "center",
-            color: "gray",
-          }}
-        >
-          or login with
-        </Text>
       </View>
     </View>
   );

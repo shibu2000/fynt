@@ -1,6 +1,6 @@
 import { type SQLiteDatabase } from "expo-sqlite";
 
-export const DATABASE_VERSION = 1;
+export const DATABASE_VERSION = 2;
 
 export default async function migrateDbIfNeeded(db: SQLiteDatabase) {
   const row = await db.getFirstAsync<{
@@ -26,7 +26,16 @@ export default async function migrateDbIfNeeded(db: SQLiteDatabase) {
       type TEXT NOT NULL CHECK (type IN ('expense', 'income')));
     `);
 
-  currentDbVersion = 1;
+  await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS user (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      password TEXT NOT NULL
+      );
+    `);
+
+  currentDbVersion = 2;
 
   // future migrations:
   // if (currentDbVersion === 1) { ...; currentDbVersion = 2; }

@@ -33,6 +33,18 @@ const _layout = () => {
               <Text style={{ fontSize: 18, fontWeight: "600" }}>Overview</Text>
             </View>
           ),
+          headerLeft: () => (
+            <Link
+              href="/home/transaction"
+              style={{
+                padding: 6,
+                marginRight: 10,
+                backgroundColor: "transparent",
+              }}
+            >
+              <MaterialIcons name="manage-history" size={24} color="black" />
+            </Link>
+          ),
 
           headerRight: () => (
             <Link

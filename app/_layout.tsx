@@ -14,6 +14,7 @@ import {
 
 import { ToastProvider } from "@/components/ToastProvider";
 import migrateDbIfNeeded from "@/database/migrations";
+import { AuthProvider } from "@/providers/AuthProvider";
 import { TransactionProvider } from "@/providers/TransactionProviders";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -53,9 +54,11 @@ export default function RootLayout() {
       />
       <ToastProvider>
         <SQLiteProvider databaseName={`fynt.db`} onInit={migrateDbIfNeeded}>
-          <TransactionProvider>
-            <Stack screenOptions={{ headerShown: false }} />
-          </TransactionProvider>
+          <AuthProvider>
+            <TransactionProvider>
+              <Stack screenOptions={{ headerShown: false }} />
+            </TransactionProvider>
+          </AuthProvider>
         </SQLiteProvider>
       </ToastProvider>
     </SafeAreaProvider>

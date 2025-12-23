@@ -1,7 +1,5 @@
 import LoginForm from "@/components/auth/LoginForm";
 import RegisterForm from "@/components/auth/RegisterForm";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -46,23 +44,33 @@ const index = () => {
 
       {action == "login" ? <LoginForm /> : <RegisterForm />}
 
-      <View
+      {/* <Text
+        style={{
+          marginTop: 5,
+          textAlign: "center",
+          color: "gray",
+        }}
+      >
+        or login with
+      </Text> */}
+
+      {/* <View
         style={{
           borderColor: "#d0d0d0",
           marginVertical: 50,
           borderWidth: 1,
         }}
-      />
+      /> */}
 
       {/* Social Login */}
-      <View className="flex flex-row justify-center gap-5">
+      {/* <View className="flex flex-row justify-center gap-5">
         <TouchableOpacity style={style.socialBtn}>
           <AntDesign name="google" size={50} color="#5b5b5b" />
         </TouchableOpacity>
         <TouchableOpacity style={style.socialBtn}>
           <FontAwesome name="facebook" size={50} color="#5b5b5b" />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
