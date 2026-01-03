@@ -1,147 +1,82 @@
-# FYNT - For Your Net Total
+# FYNT (For Your Net Total)
 
-FYNT (For Your Net Total) is a personal finance tracking application built with React Native and Expo. It helps you track your income and expenses, manage your budget, and gain insights into your spending habits.
+**FYNT** is a privacy-focused, offline-first personal finance manager built with React Native and Expo. It helps you track your income and expenses with ease, giving you control over your financial health without relying on cloud services.
 
-## ✨ Features
+## Features
 
-- 💰 Track income and expenses
-- 📊 View financial insights and analytics
-- 🏷️ Categorize transactions
-- 📅 Filter transactions by date
-- 🔄 Sync across devices (coming soon)
-- 🔒 Secure data storage with SQLite
-- 🌓 Dark/Light mode support
+- **💸 Income & Expense Tracking**: Easily add transactions with categories.
+- **📊 Overview Dashboard**: Get a quick view of your finances.
+- **📂 Categories**: Pre-defined categories for better organization (Salary, Food, Transport, etc.).
+- **🔐 Offline First**: All data is stored locally on your device using SQLite.
+- **📱 Modern UI**: Built with NativeWind (Tailwind CSS) for a sleek, responsive design.
+- **⚙️ Data Management**: Full control to clear your data whenever you want.
 
-## 🚀 Tech Stack
+## Tech Stack
 
-- **Framework**: React Native with Expo
-- **Navigation**: Expo Router
-- **Styling**: NativeWind (TailwindCSS for React Native)
-- **UI Components**: Expo Vector Icons, React Native Paper
-- **Form Handling**: React Hook Form
-- **Database**: Expo SQLite
-- **Animation**: React Native Reanimated
+- **Framework**: [React Native](https://reactnative.dev/) & [Expo](https://expo.dev/) (SDK 54)
+- **Routing**: [Expo Router](https://docs.expo.dev/router/introduction/) v6
+- **Styling**: [NativeWind](https://www.nativewind.dev/) (Tailwind CSS) v4
+- **Database**: [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+- **Forms**: [React Hook Form](https://react-hook-form.com/)
+- **Typography**: Google Fonts (Caveat, DM Sans)
 
-## 📋 Prerequisites
+## Installation & Development
 
-- Node.js (v16 or later)
+### Prerequisites
+
+- Node.js (Latest LTS recommended)
 - npm or yarn
-- Expo CLI
-- Android Studio / Xcode (for mobile development)
-- Git
+- Android Studio (for Android Emulator) or Xcode (for iOS Simulator)
 
-## 🛠️ Installation
+### Steps
 
-1. **Clone the repository**
+1.  **Clone the repository**
 
-   ```bash
-   git clone https://github.com/yourusername/fynt.git
-   cd fynt
-   ```
+    ```bash
+    git clone https://github.com/shibudhara147/FYNT.git
+    cd FYNT
+    ```
 
-2. **Install dependencies**
+2.  **Install dependencies**
 
-   ```bash
-   npm install
-   # or
-   yarn
-   ```
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-3. **Start the development server**
-   ```bash
-   npx expo start
-   ```
+3.  **Run the app**
 
-## 📱 Running the App
+    ```bash
+    npx expo start
+    ```
 
-- **iOS Simulator**: Press `i` in the terminal
-- **Android Emulator**: Press `a` in the terminal
-- **Physical Device**: Scan the QR code with the Expo Go app
+    - Press `a` to run on Android Emulator.
+    - Press `i` to run on iOS Simulator.
 
-## 🗂 Project Structure
+## Building for F-Droid / Android
 
-```
-fynt/
-├── app/                    # Main application code
-│   ├── auth/               # Authentication screens
-│   └── home/               # Main app screens
-│       ├── add-expense/    # Add expense screen
-│       ├── add-income/     # Add income screen
-│       ├── history/        # Transaction history
-│       └── settings/       # App settings
-├── components/             # Reusable components
-├── assets/                 # Static assets
-└── utils/                  # Utility functions
-```
+To build the APK locally without EAS services (often required for F-Droid reproducibility):
 
-## �️ Routes
+1.  **Prebuild the project** (generates android folder)
 
-The application uses file-based routing with the following main routes:
+    ```bash
+    npx expo prebuild --platform android
+    ```
 
-- `/` - Home/Dashboard
-  - Displays financial overview and recent transactions
-  - Quick access to add income/expense
+2.  **Build with Gradle**
 
-- `/auth` - Authentication
-  - Handles user login and registration
-  - Manages user sessions
+    ```bash
+    cd android
+    ./gradlew assembleRelease
+    ```
 
-- `/home` - Main App Screens
-  - `/add-expense` - Add new expense transactions
-  - `/add-income` - Add new income transactions
-  - `/history` - View and filter transaction history
-  - `/settings` - App and account settings
+    The APK will be located in `android/app/build/outputs/apk/release/app-release.apk`.
 
-- `/components` - Reusable UI Components
-  - `/auth` - Authentication forms and components
-  - `/home` - Home screen components like modals and transaction items
+## License
 
-## �📝 Available Scripts
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-- `npm start` - Start the development server
-- `npm run android` - Run on Android device/emulator
-- `npm run ios` - Run on iOS simulator
-- `npm run web` - Run in web browser
-- `npm run lint` - Run ESLint
-
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Built with ❤️ using React Native and Expo
-- Icons by Expo Vector Icons
-- UI components from React Native Paper
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
