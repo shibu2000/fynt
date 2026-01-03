@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "FYNT",
-    "slug": "FYNT",
+    "slug": "fynt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.shibudhara147.FYNT"
+      "bundleIdentifier": "com.fynt.expensetracker"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +21,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.shibudhara147.FYNT"
+      "package": "com.fynt.expensetracker"
     },
     "web": {
       "output": "static",
@@ -50,10 +50,7 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "523edb40-9896-43d0-aaf2-c30506e8970d"
-      }
+      "router": {}
     }
   }
 }
