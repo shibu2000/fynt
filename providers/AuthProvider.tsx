@@ -1,5 +1,5 @@
 import { useSQLiteContext } from "expo-sqlite";
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 interface RegisterFormType {
   name: string;
@@ -18,6 +18,13 @@ const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     null
   );
   const db = useSQLiteContext();
+
+  useEffect(() => {
+    (async () => {
+      const rows = await db.getFirstAsync("SELECT * FROM user;");
+      console.log(rows);
+    })();
+  }, []);
 
   const checkUserExistance = async () => {
     try {
@@ -39,7 +46,6 @@ const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     const res = await db.getFirstAsync<{ password: string }>(
       `SELECT password FROM user ORDER BY id DESC LIMIT 1`
     );
-    console.log({ res });
     if (res?.password == password) {
       return true;
     }

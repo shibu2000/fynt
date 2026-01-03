@@ -13,12 +13,18 @@ const _layout = () => {
         headerBackVisible: false,
         title: "Transaction Details",
         headerTitleAlign: "center",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#1F5B4B",
+        },
         headerLeft: () => (
           <TouchableOpacity
             style={{ paddingHorizontal: 10 }}
             onPress={() => router.back()}
           >
-            <Ionicons name="chevron-back" size={28} color="black" />
+            <Ionicons name="chevron-back" size={28} color="white" />
           </TouchableOpacity>
         ),
       }}

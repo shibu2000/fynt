@@ -1,5 +1,6 @@
 import LoadingScreen from "@/components/LoadingScreen";
 import { useAuth } from "@/providers/AuthProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -10,17 +11,24 @@ export default function Index() {
   const [isLoadingScreen, setIsLoadingScreen] = useState(true);
 
   useEffect(() => {
-    checkUserExistance()
-      .then((user) => {
-        console.log({ user });
-        if (user) {
-          router.replace("/auth/login");
-        }
-      })
-      .catch((error) => {
-        console.log("ok");
-      })
-      .finally(() => setIsLoadingScreen(false));
+    (async () => {
+      const isLoggedIn = await AsyncStorage.getItem("lastLoginTime");
+      const currentTime = Date.now();
+      if (isLoggedIn && currentTime - Number(isLoggedIn) < 5 * 60 * 1000) {
+        router.replace("/home");
+      } else {
+        checkUserExistance()
+          .then((user) => {
+            if (user) {
+              router.replace("/auth/login");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => setIsLoadingScreen(false));
+      }
+    })();
   }, []);
 
   if (isLoadingScreen) return <LoadingScreen />;

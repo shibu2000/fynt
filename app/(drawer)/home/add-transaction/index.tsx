@@ -181,6 +181,7 @@ export default function AddTransaction() {
               onChangeText={onChange}
               keyboardType="number-pad"
               className="bg-white px-4 py-2 rounded-xl text-2xl font-dmMedium flex-1"
+              placeholderTextColor="#9CA3AF"
             />
           )}
         />
@@ -199,6 +200,7 @@ export default function AddTransaction() {
               value={value}
               onChangeText={onChange}
               className="bg-white px-4 py-4 rounded-xl text-xl font-dmMedium mb-4"
+              placeholderTextColor="#9CA3AF"
             />
           )}
         />
@@ -213,6 +215,7 @@ export default function AddTransaction() {
               value={value}
               onChangeText={onChange}
               className="bg-white px-4 py-4 rounded-xl text-xl font-dmMedium h-[100px]"
+              placeholderTextColor="#9CA3AF"
             />
           )}
         />

@@ -26,12 +26,18 @@ const _layout = () => {
         headerBackVisible: false,
         title,
         headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#1F5B4B",
+        },
+        headerTitleStyle: {
+          color: "white",
+        },
         headerLeft: () => (
           <TouchableOpacity
             style={{ paddingHorizontal: 10 }}
             onPress={() => router.back()}
           >
-            <Ionicons name="chevron-back" size={28} color="black" />
+            <Ionicons name="chevron-back" size={28} color="white" />
           </TouchableOpacity>
         ),
       }}

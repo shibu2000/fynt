@@ -45,6 +45,7 @@ const LoginForm = () => {
             className="rounded-full p-5 bg-white"
             value={value}
             onChangeText={onChange}
+            placeholderTextColor="#9CA3AF"
           />
         )}
       />
@@ -62,6 +63,7 @@ const LoginForm = () => {
             className="rounded-full p-5 bg-white"
             value={value}
             onChangeText={onChange}
+            placeholderTextColor="#9CA3AF"
           />
         )}
       />

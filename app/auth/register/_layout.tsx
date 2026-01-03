@@ -14,6 +14,12 @@ export default function AuthLayout() {
           headerTitle: "Register",
           headerBackVisible: false,
           headerTitleAlign: "center",
+          headerTitleStyle: {
+            color: "white",
+          },
+          headerStyle: {
+            backgroundColor: "#1F5B4B",
+          },
         }}
       />
     </Stack>

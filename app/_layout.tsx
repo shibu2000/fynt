@@ -16,17 +16,19 @@ import { ToastProvider } from "@/components/ToastProvider";
 import migrateDbIfNeeded from "@/database/migrations";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { TransactionProvider } from "@/providers/TransactionProviders";
-import { Stack } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { SQLiteProvider } from "expo-sqlite";
 import React, { useEffect } from "react";
-import { StatusBar, View } from "react-native";
+import { AppState, StatusBar, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const router = useRouter();
   const [fontsLoaded] = useFonts({
     DMSans_400Regular,
     DMSans_500Medium,
@@ -43,6 +45,30 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      "change",
+      async (nextState) => {
+        if (nextState === "active") {
+          const currentTime = Date.now();
+          const lastLoginTime = await AsyncStorage.getItem("lastLoginTime");
+          console.log({ lastLoginTime, currentTime });
+          if (
+            lastLoginTime &&
+            currentTime - Number(lastLoginTime) > 5 * 60 * 1000
+          ) {
+            AsyncStorage.removeItem("lastLoginTime");
+            router.replace("/auth/login");
+          }
+        }
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   if (!fontsLoaded) return null;
   return (
     <SafeAreaProvider className="flex-1 bg-green-950 border border-black">
@@ -50,7 +76,7 @@ export default function RootLayout() {
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content" // or "light-content"
+        barStyle="light-content" // or "light-content"
       />
       <ToastProvider>
         <SQLiteProvider databaseName={`fynt.db`} onInit={migrateDbIfNeeded}>

@@ -52,6 +52,7 @@ const FormInput = ({
         style={[styles.input, error ? styles.inputError : styles.inputNormal]}
         value={value}
         onChangeText={onChange}
+        placeholderTextColor="#9CA3AF"
       />
 
       {error && <Text style={styles.errorText}>{error}</Text>}

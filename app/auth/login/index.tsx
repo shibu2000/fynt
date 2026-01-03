@@ -1,5 +1,6 @@
 import { toast } from "@/components/toast";
 import { useAuth } from "@/providers/AuthProvider";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -7,6 +8,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   const { login } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const router = useRouter();
 
@@ -27,17 +29,34 @@ const Login = () => {
           className="h-[350px] w-[350px] mt-10"
         />
       </View>
-
-      <TextInput
-        style={{
-          borderColor: "green",
-          borderWidth: 1,
-        }}
-        placeholder="Password"
-        className="rounded-full p-5 bg-white mt-10 text-center"
-        value={password}
-        onChangeText={setPassword}
-      />
+      <View className="mt-10 rounded-full relative">
+        <TextInput
+          secureTextEntry={!showPassword}
+          style={{
+            borderColor: "green",
+            borderWidth: 1,
+          }}
+          placeholder="Password"
+          className="rounded-full p-5 bg-white text-center"
+          value={password}
+          onChangeText={setPassword}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholderTextColor="#9CA3AF"
+        />
+        <AntDesign
+          name={showPassword ? "eye" : "eye-invisible"}
+          size={24}
+          color="#1F5B4B"
+          style={{
+            position: "absolute",
+            right: 20,
+            top: "50%",
+            transform: [{ translateY: -12 }],
+          }}
+          onPress={() => setShowPassword((prev) => !prev)}
+        />
+      </View>
 
       <View
         style={{
@@ -56,9 +75,10 @@ const Login = () => {
         colors={["#1F5B4B", "#569138"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        className="mt-20 w-[200px] self-center rounded-full"
+        className="w-[200px] self-center rounded-full"
         style={{
           borderRadius: 30,
+          marginTop: 20,
         }}
       >
         <TouchableOpacity
