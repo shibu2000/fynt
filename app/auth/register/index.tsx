@@ -49,7 +49,11 @@ const FormInput = ({
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry}
         autoCapitalize="none"
-        style={[styles.input, error ? styles.inputError : styles.inputNormal]}
+        style={[
+          styles.input,
+          error ? styles.inputError : styles.inputNormal,
+          { color: "#111827" },
+        ]}
         value={value}
         onChangeText={onChange}
         placeholderTextColor="#9CA3AF"

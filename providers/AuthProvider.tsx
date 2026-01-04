@@ -1,5 +1,5 @@
 import { useSQLiteContext } from "expo-sqlite";
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 interface RegisterFormType {
   name: string;
@@ -19,12 +19,12 @@ const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   );
   const db = useSQLiteContext();
 
-  useEffect(() => {
-    (async () => {
-      const rows = await db.getFirstAsync("SELECT * FROM user;");
-      console.log(rows);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const rows = await db.getFirstAsync("SELECT * FROM user;");
+  //     console.log(rows);
+  //   })();
+  // }, []);
 
   const checkUserExistance = async () => {
     try {

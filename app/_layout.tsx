@@ -52,7 +52,6 @@ export default function RootLayout() {
         if (nextState === "active") {
           const currentTime = Date.now();
           const lastLoginTime = await AsyncStorage.getItem("lastLoginTime");
-          console.log({ lastLoginTime, currentTime });
           if (
             lastLoginTime &&
             currentTime - Number(lastLoginTime) > 5 * 60 * 1000
@@ -76,7 +75,7 @@ export default function RootLayout() {
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="light-content" // or "light-content"
+        barStyle="dark-content" // or "light-content"
       />
       <ToastProvider>
         <SQLiteProvider databaseName={`fynt.db`} onInit={migrateDbIfNeeded}>

@@ -180,7 +180,7 @@ export default function AddTransaction() {
               value={value}
               onChangeText={onChange}
               keyboardType="number-pad"
-              className="bg-white px-4 py-2 rounded-xl text-2xl font-dmMedium flex-1"
+              className="bg-white px-4 py-2 rounded-xl text-2xl font-dmMedium flex-1 text-gray-900"
               placeholderTextColor="#9CA3AF"
             />
           )}
@@ -199,7 +199,7 @@ export default function AddTransaction() {
               placeholder="Enter title"
               value={value}
               onChangeText={onChange}
-              className="bg-white px-4 py-4 rounded-xl text-xl font-dmMedium mb-4"
+              className="bg-white px-4 py-4 rounded-xl text-xl font-dmMedium mb-4 text-gray-900"
               placeholderTextColor="#9CA3AF"
             />
           )}
@@ -214,7 +214,7 @@ export default function AddTransaction() {
               placeholder="Enter description"
               value={value}
               onChangeText={onChange}
-              className="bg-white px-4 py-4 rounded-xl text-xl font-dmMedium h-[100px]"
+              className="bg-white px-4 py-4 rounded-xl text-xl font-dmMedium h-[100px] text-gray-900"
               placeholderTextColor="#9CA3AF"
             />
           )}

@@ -39,6 +39,7 @@ const LoginForm = () => {
             style={{
               borderColor: "green",
               borderWidth: 1,
+              color: "#111827",
             }}
             className="rounded-full p-5 bg-white"
             value={value}
@@ -57,6 +58,7 @@ const LoginForm = () => {
             style={{
               borderColor: "green",
               borderWidth: 1,
+              color: "#111827",
             }}
             className="rounded-full p-5 bg-white"
             value={value}
@@ -75,6 +77,7 @@ const LoginForm = () => {
             style={{
               borderColor: "green",
               borderWidth: 1,
+              color: "#111827",
             }}
             className="rounded-full p-5 bg-white"
             value={value}

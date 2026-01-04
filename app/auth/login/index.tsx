@@ -37,7 +37,7 @@ const Login = () => {
             borderWidth: 1,
           }}
           placeholder="Password"
-          className="rounded-full p-5 bg-white text-center"
+          className="rounded-full p-5 bg-white text-center text-gray-900"
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
