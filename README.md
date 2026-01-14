@@ -33,7 +33,7 @@
 1.  **Clone the repository**
 
     ```bash
-    git clone https://github.com/shibudhara147/FYNT.git
+    git clone https://github.com/shibu2000/fynt.git
     cd FYNT
     ```
 
