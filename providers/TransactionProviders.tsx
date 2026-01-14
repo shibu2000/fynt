@@ -7,7 +7,11 @@ const TransactionContext = createContext<{
   addTransaction: (t: TransactionType) => Promise<void>;
   balance: number;
   loading: boolean;
-  fetchTransaction: (p: number) => Promise<TransactionWithId[]>;
+  fetchTransaction: (
+    p: number,
+    d?: Date | null,
+    c?: string | null
+  ) => Promise<TransactionWithId[]>;
   totalPages: number;
   fetchTransactionById: (id: number) => Promise<TransactionWithId | null>;
   deleteTransactionById: (transaction: TransactionWithId) => Promise<void>;
@@ -28,11 +32,35 @@ export const TransactionProvider = ({
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
 
-  async function fetchTransaction(page: number = 1) {
+  async function fetchTransaction(
+    page: number = 1,
+    date?: Date | null,
+    category?: string | null
+  ) {
     const offset = page * LIMIT - LIMIT;
+    const whereClause: string[] = [];
+    let whereQuery = "";
     try {
+      await fetchTotalPage();
+
+      if (date) {
+        whereClause.push(
+          `datetime like '${date.toISOString().split("T")[0]}%'`
+        );
+      }
+
+      if (category) {
+        whereClause.push(`category = '${category}'`);
+      }
+
+      if (whereClause.length > 0) {
+        whereQuery = "WHERE " + whereClause.join(" AND ");
+      }
+
       const rows = await db.getAllAsync<TransactionWithId>(
-        `SELECT * FROM transactions ORDER BY datetime DESC LIMIT 10 OFFSET ${offset}`
+        `SELECT * FROM transactions 
+          ${whereQuery}
+          ORDER BY datetime DESC LIMIT 10 OFFSET ${offset}`
       );
 
       return rows;
@@ -166,23 +194,27 @@ export const TransactionProvider = ({
     }
   }
 
+  async function fetchTotalPage() {
+    const totalCount = await db.getFirstAsync<{ count: number }>(
+      "SELECT COUNT(*) AS count FROM transactions"
+    );
+
+    setTotalPages(() => {
+      if (totalCount?.count) {
+        return Math.ceil(totalCount.count / 10);
+      } else {
+        return 0;
+      }
+    });
+  }
+
   async function initTransactions() {
     try {
       const rows = await db.getAllAsync<TransactionWithId>(
         `SELECT * FROM transactions ORDER BY datetime DESC LIMIT ${LIMIT}`
       );
 
-      const totalCount = await db.getFirstAsync<{ count: number }>(
-        "SELECT COUNT(*) AS count FROM transactions"
-      );
-
-      setTotalPages(() => {
-        if (totalCount?.count) {
-          return Math.ceil(totalCount.count / 10);
-        } else {
-          return 0;
-        }
-      });
+      await fetchTotalPage();
 
       const row = await db.getFirstAsync<{
         income: number;

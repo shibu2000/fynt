@@ -7,3 +7,14 @@ export function parseDateTime(date: string, time: string) {
 
   return new Date(`${date}T${String(hours).padStart(2, "0")}:${minutes}:00`);
 }
+
+export function isToday(date: string) {
+  const parsedDate = new Date(date);
+  const today = new Date();
+
+  return (
+    parsedDate.getDate() === today.getDate() &&
+    parsedDate.getMonth() === today.getMonth() &&
+    parsedDate.getFullYear() === today.getFullYear()
+  );
+}

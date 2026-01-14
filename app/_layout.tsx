@@ -20,7 +20,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { SQLiteProvider } from "expo-sqlite";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { AppState, StatusBar, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "../global.css";
@@ -38,12 +38,6 @@ export default function RootLayout() {
     Caveat_600SemiBold,
     Caveat_700Bold,
   });
-
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener(
@@ -68,9 +62,21 @@ export default function RootLayout() {
     };
   }, []);
 
-  if (!fontsLoaded) return null;
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return <View style={{ flex: 1, backgroundColor: "#000" }} />;
+  }
+
   return (
-    <SafeAreaProvider className="flex-1 bg-green-950 border border-black">
+    <SafeAreaProvider
+      className="flex-1 bg-green-950 border border-black"
+      onLayout={onLayoutRootView}
+    >
       <View className="absolute inset-0 bg-outerBg" />
       <StatusBar
         translucent

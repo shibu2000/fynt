@@ -14,7 +14,7 @@ export default function Index() {
     (async () => {
       const isLoggedIn = await AsyncStorage.getItem("lastLoginTime");
       const currentTime = Date.now();
-      if (isLoggedIn && currentTime - Number(isLoggedIn) < 5 * 60 * 1000) {
+      if (isLoggedIn && currentTime - Number(isLoggedIn) < 1440 * 60 * 1000) {
         router.replace("/home");
       } else {
         checkUserExistance()

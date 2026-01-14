@@ -2,6 +2,7 @@ import DeleteModal from "@/components/DeleteModal";
 import TransactionItem from "@/components/home/TransactionItem";
 import LoadingScreen from "@/components/LoadingScreen";
 import { toast } from "@/components/toast";
+import CategoryModal from "@/components/transaction/CategoryModal";
 import { useTransaction } from "@/providers/TransactionProviders";
 import { TransactionWithId } from "@/type/transaction.type";
 import { Feather } from "@expo/vector-icons";
@@ -15,15 +16,20 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 const history = () => {
   const { fetchTransaction, totalPages, deleteAllTransaction } =
     useTransaction();
   const [transactions, setTransactions] = useState<TransactionWithId[]>([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const router = useRouter();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
   useEffect(() => {
     if (page > totalPages || !totalPages) return;
@@ -31,8 +37,14 @@ const history = () => {
     async function loadData() {
       setLoading(true);
       try {
-        const response = await fetchTransaction(page);
-        setTransactions((prev) => [...prev, ...response]);
+        const response = await fetchTransaction(
+          page,
+          selectedDate,
+          selectedCategory
+        );
+        setTransactions((prev) =>
+          page === 1 ? [...response] : [...prev, ...response]
+        );
       } catch (error) {
         toast.error("Failed to load transaction!");
       } finally {
@@ -40,7 +52,7 @@ const history = () => {
       }
     }
     loadData();
-  }, [page, totalPages]);
+  }, [page, totalPages, selectedCategory, selectedDate]);
 
   const handlePagination = () => {
     if (loading || page >= totalPages || !totalPages) return;
@@ -51,11 +63,40 @@ const history = () => {
     try {
       await deleteAllTransaction();
       setDeleteModalVisible(false);
+      setPage(1);
+      setSelectedCategory(null);
+      setSelectedDate(null);
       toast.success("All transactions are deleted");
       setTransactions([]);
     } catch (error) {
       toast.error("Something went wrong, try again!");
     }
+  };
+
+  const handleCategoryFilter = (category: string) => {
+    setSelectedCategory(category);
+    setPage(1);
+    setCategoryModalVisible(false);
+  };
+
+  const handleDateConfirm = (date: Date) => {
+    setPage(1);
+    setIsDatePickerVisible(false);
+    setSelectedDate(date);
+  };
+
+  const hideDatePicker = () => {
+    setIsDatePickerVisible(false);
+  };
+
+  const handleClearFilter = () => {
+    setPage(1);
+    setSelectedCategory(null);
+    setSelectedDate(null);
+  };
+
+  const handleDeleteAllTransactions = () => {
+    setDeleteModalVisible(true);
   };
 
   if (loading && page === 1) return <LoadingScreen />;
@@ -64,20 +105,34 @@ const history = () => {
     <View style={{ flex: 1 }}>
       <View className="flex flex-row justify-between items-center bg-white p-5">
         <View className="flex flex-row gap-3">
-          <TouchableOpacity className="flex flex-row items-center gap-2 border border-gray-300 p-2 px-4 rounded-full">
+          <TouchableOpacity
+            onPress={() => setIsDatePickerVisible(true)}
+            className="flex flex-row items-center gap-2 border border-gray-300 p-2 px-4 rounded-full"
+          >
             <Feather name="calendar" size={15} color="black" />
-            <Text className="font-dmMedium text-lg">Date</Text>
+            <Text className="font-dmMedium text-lg">
+              {selectedDate?.toLocaleDateString() || "Date"}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity className="flex flex-row items-center gap-2 border border-gray-300 p-2 px-4 rounded-full">
+          <TouchableOpacity
+            onPress={() => setCategoryModalVisible(true)}
+            className="flex flex-row items-center gap-2 border border-gray-300 p-2 px-4 rounded-full"
+          >
             <Feather name="tag" size={15} color="black" />
-            <Text className="font-dmMedium text-lg">Category</Text>
+            <Text className="font-dmMedium text-lg">
+              {selectedCategory || "Category"}
+            </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => setDeleteModalVisible(true)}>
+        <TouchableOpacity onPress={handleClearFilter}>
+          <Text className="text-[#1F5B4B] font-dmMedium text-lg">Reset</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity onPress={handleDeleteAllTransactions}>
           <Text className="text-[#1F5B4B] font-dmMedium text-lg">
             Clear All
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View style={{ padding: 10 }}>
         <FlatList
@@ -108,12 +163,26 @@ const history = () => {
           }
         />
       </View>
+      <DateTimePicker
+        isVisible={isDatePickerVisible}
+        onConfirm={handleDateConfirm}
+        onCancel={hideDatePicker}
+        mode="date"
+        date={selectedDate ? new Date(selectedDate) : new Date()}
+      />
       <DeleteModal
         visible={deleteModalVisible}
         onClose={() => setDeleteModalVisible(false)}
         onConfirm={handleClearAll}
         title="Clear All Transactions?"
         subtitle="This action cannot be undone. Are you sure you want to delete all the transactions?"
+      />
+      <CategoryModal
+        modalVisibility={categoryModalVisible}
+        handleCloseModal={() => setCategoryModalVisible(false)}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        handleCategoryFilter={handleCategoryFilter}
       />
     </View>
   );

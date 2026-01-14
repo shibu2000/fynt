@@ -68,7 +68,12 @@ const ActionModal = ({
   };
 
   return (
-    <Modal visible={modalVisibility} transparent animationType="none">
+    <Modal
+      visible={modalVisibility}
+      transparent
+      animationType="none"
+      presentationStyle="formSheet"
+    >
       {/* Backdrop */}
       <Pressable
         onPress={() => {

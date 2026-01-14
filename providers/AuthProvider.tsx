@@ -19,13 +19,6 @@ const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   );
   const db = useSQLiteContext();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const rows = await db.getFirstAsync("SELECT * FROM user;");
-  //     console.log(rows);
-  //   })();
-  // }, []);
-
   const checkUserExistance = async () => {
     try {
       const res = await db.getFirstAsync<{ name: string; email: string }>(
